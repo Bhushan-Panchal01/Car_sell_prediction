@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SeeCar.com</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <h2 style="color: honeydew">
+        <i class="fa fa-car" aria-hidden="true"></i> Car Selling Price
+      </h2>
+    </nav>
+    <div class="container my-2" style="background-color: gray; width: auto">
+      <form
+        class="form-horizontal"
+        action="{{ url_for('predict')}}"
+        method="post"
+      >
+        <fieldset style="background-color: aquamarne">
+          <!-- Prepended text-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="prependedtext"></label>
+            <div class="col-md-12 mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Years</span>
+                <input
+                  class="form-control"
+                  placeholder="Years of car is used"
+                  required=""
+                  name="Year"
+                  type="number"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="prependedtext"></label>
+            <div class="col-md-12 mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Current Price</span>
+                <input
+                  id="prependedtext"
+                  name="Present_Price"
+                  class="form-control"
+                  placeholder="Current Price of the car"
+                  type="text"
+                  required=""
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Prepended text-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="prependedtext"></label>
+            <div class="col-md-12 mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Driven KM</span>
+                <input
+                  id="prependedtext"
+                  name="Kms_Driven"
+                  class="form-control"
+                  placeholder="How Many Kilometers Drived"
+                  type="text"
+                  required=""
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic"
+              >Owners</label
+            >
+            <div class="col-md-12">
+              <select id="selectbasic" name="Owners" class="form-control">
+                <option value="1">None</option>
+                <option value="2">One</option>
+                <option value="3">More than one</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic"
+              >Fuel Type</label
+            >
+            <div class="col-md-12">
+              <select id="selectbasic" name="Fuel_Type" class="form-control">
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="CNG">CNG</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic"
+              >Dealer/ Individual</label
+            >
+            <div class="col-md-12">
+              <select id="selectbasic" name="Seller_Type" class="form-control">
+                <option value="Dealer">Dealer</option>
+                <option value="Individual">Individual</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic"
+              >Transmission Type</label
+            >
+            <div class="col-md-12">
+              <select id="selectbasic" name="Transmission" class="form-control">
+                <option value="Mannual">Manual</option>
+                <option value="Automatic">Automatic</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-secondary btn-lg show">
+                Calculate Price
+              </button>
+              <a href="{{ url_for('Home')}}">
+                <button
+                  type="Button"
+                  class="btn btn-secondary btn-lg btn-warning"
+                >
+                  Return
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              <strong>{{ prediction_text }}</strong>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true" style="font-size: large">&times;</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <script></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
