@@ -1,1 +1,1 @@
-# Car sell prediction using python
+# Car sales prediction using python
